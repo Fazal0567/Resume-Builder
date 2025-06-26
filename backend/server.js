@@ -12,7 +12,10 @@ const port = process.env.PORT || 3000
 connectDB()
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin:process.env.ORIGIN,
+  credentials:true
+}))
 
 app.use(cookieParser())
 
