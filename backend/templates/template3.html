@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Resume</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    @page {
+      size: A4;
+      margin:0;
+    }
+
+    body {
+      font-size: 12px;
+    }
+
+    .print-friendly {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+   
+  </style>
+</head>
+<body class="text-gray-900 print-friendly">
+  <div class="max-w-4xl mx-auto bg-white text-sm leading-tight">
+
+    <!-- Header -->
+    <div class="bg-slate-900 px-3 py-1 text-white">
+      <div class="text-center">
+        <h1 class="text-2xl font-bold mb-1">{{fullName}}</h1>
+        <p class="text-base text-slate-300 mb-2">{{role}}</p>
+        <div class="flex flex-wrap justify-center gap-2 text-xs text-slate-300">
+          {{#if contact.email}}
+          <span class="flex items-center gap-1"><i data-lucide="mail" class="w-3 h-3"></i>{{contact.email}}</span>
+          {{/if}}
+          {{#if contact.phone}}
+          <span class="flex items-center gap-1"><i data-lucide="phone" class="w-3 h-3"></i>{{contact.phone}}</span>
+          {{/if}}
+          {{#if contact.linkedin}}
+          <span class="flex items-center gap-1"><i data-lucide="linkedin" class="w-3 h-3"></i>{{contact.linkedin}}</span>
+          {{/if}}
+          {{#if contact.github}}
+          <span class="flex items-center gap-1"><i data-lucide="github" class="w-3 h-3"></i>{{contact.github}}</span>
+          {{/if}}
+          {{#if contact.website}}
+          <span class="flex items-center gap-1"><i data-lucide="globe" class="w-3 h-3"></i>{{contact.website}}</span>
+          {{/if}}
+          {{#if contact.location}}
+          <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i>{{contact.location}}</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="px-4 py-1 space-y-2">
+
+      {{#if summary}}
+<section>
+  <div class="flex items-center gap-3 mb-1 mt-1">
+    <i data-lucide="user-circle" class="w-5 h-5 text-slate-600"></i>
+    <h2 class=" font-bold text-slate-900 border-b-2 border-slate-900 ">Professional Summary</h2>
+  </div>
+  <p class="text-gray-700 text-xs leading-tight bg-gray-50 p-2 rounded-lg">
+    {{summary}}
+  </p>
+</section>
+{{/if}}
+
+
+    {{#if skills.length}}
+<section>
+  <div class="flex items-center gap-3 mb-3">
+    <i data-lucide="zap" class="w-5 h-5 text-slate-600"></i>
+    <h2 class=" font-bold text-slate-900 border-b-2 border-slate-900 ">Skills & Expertise</h2>
+  </div>
+  <div class="flex flex-wrap gap-2">
+    {{#each skills}}
+    <span class="bg-slate-800 text-white px-3 py-1 rounded-full text-xs font-medium hover:bg-slate-700 transition-colors">
+      {{this}}
+    </span>
+    {{/each}}
+  </div>
+</section>
+{{/if}}
+
+      {{#if experience.length}}
+<section>
+  <!-- Section Header -->
+  <div class="flex items-center gap-3 mb-2">
+    <i data-lucide="briefcase" class="w-5 h-5 text-slate-600"></i>
+    <h2 class=" font-bold text-slate-900 border-b-2 border-slate-900 ">Work Experience</h2>
+  </div>
+
+  <!-- Experience Entries -->
+  <div class="space-y-1">
+    {{#each experience}}
+    <div class="border-l-4 border-slate-400 pl-4 hover:border-slate-600 transition-colors">
+      <div class="bg-white border border-gray-200 rounded-lg px-4 py-1 shadow-sm hover:shadow-md transition-shadow">
+        <div class="flex items-center justify-between">
+        <!-- Role -->
+
+        <h3 class="font-bold text-slate-900 mb-1">{{role}}</h3>
+         <!-- Dates -->
+        <p class="text-sm text-gray-600 flex items-center gap-1">
+          <i data-lucide="calendar" class="w-4 h-4"></i>
+          {{formatDate startDate}} - {{formatDate endDate}}
+        </p>
+        </div>
+        <!-- Company -->
+       
+          <p class="font-semibold text-slate-700 mb-1">{{company}}</p>
+       
+
+       
+
+        <!-- Description -->
+        {{#if description}}
+        <p class="text-gray-700 leading-tight text-sm">{{description}}</p>
+        {{/if}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</section>
+{{/if}}
+
+
+     {{#if education.length}}
+<section>
+  <!-- Section Header -->
+  <div class="flex items-center gap-3 mb-2">
+    <i data-lucide="graduation-cap" class="w-5 h-5 text-slate-600"></i>
+    <h2 class=" font-bold text-slate-900 border-b-2 border-slate-900 ">Education</h2>
+  </div>
+
+  <!-- Education Items -->
+  <div class="space-y-1">
+    {{#each education}}
+    <div class="bg-gray-50 border border-gray-200 rounded-lg px-4 py-1">
+      <div class="flex justify-between items-start">
+        <!-- Degree and Institution -->
+        <div>
+          <h3 class=" font-bold text-slate-900">{{degree}}</h3>
+          <p class="text-sm font-semibold text-slate-700">{{institution}}</p>
+        </div>
+        
+        <!-- Date and GPA -->
+        <div class="text-right">
+          <p class="text-sm text-gray-600 flex items-center gap-1">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+            {{startYear}} - {{endYear}}
+          </p>
+          {{#if gpa}}
+          <p class="text-sm font-semibold text-slate-800 mt-1">GPA: {{gpa}}</p>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</section>
+{{/if}}
+
+
+      {{#if projects.length}}
+<section>
+  <!-- Section Header -->
+  <div class="flex items-center gap-3 mb-2">
+    <i data-lucide="code" class="w-5 h-5 text-slate-600"></i>
+    <h2 class=" font-bold text-slate-900 border-b-2 border-slate-900 ">Featured Projects</h2>
+  </div>
+
+  <!-- Project Cards -->
+  <div class="space-y-1">
+    {{#each projects}}
+    <div class="bg-white border border-gray-200 rounded-lg px-4 py-1">
+      <!-- Project Name -->
+      <h3 class=" font-bold text-slate-900 mb-1">{{name}}</h3>
+
+      <!-- Tech Stack -->
+      {{#if techStack}}
+      <div class="mb-1">
+        <span class="text-sm font-semibold text-gray-700">Tech Stack: </span>
+        <span class="text-sm text-slate-600">{{techStack}}</span>
+      </div>
+      {{/if}}
+
+      <!-- Description -->
+      {{#if description}}
+      <p class="text-gray-700 mb-1 leading-tight text-sm">{{description}}</p>
+      {{/if}}
+
+      <!-- Links -->
+      <div class="flex gap-3">
+        {{#if liveDemo}}
+        <a href="{{liveDemo}}" target="_blank" class="inline-flex items-center gap-1 text-slate-700 hover:text-slate-900 font-semibold text-sm border border-slate-300 px-3 py-1 rounded hover:bg-slate-50 transition-colors">
+          <i data-lucide="external-link" class="w-4 h-4"></i>
+          Live Demo
+        </a>
+        {{/if}}
+
+        {{#if github}}
+        <a href="{{github}}" target="_blank" class="inline-flex items-center gap-1 text-slate-700 hover:text-slate-900 font-semibold text-sm border border-slate-300 px-3 py-1 rounded hover:bg-slate-50 transition-colors">
+          <i data-lucide="github" class="w-4 h-4"></i>
+          GitHub
+        </a>
+        {{/if}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</section>
+{{/if}}
+
+     {{#if certificates.length}}
+<section>
+  <div class="flex items-center gap-3 mb-2">
+    <i data-lucide="award" class="w-5 h-5 text-slate-600"></i>
+    <h2 class=" font-bold text-slate-900 border-b-2 border-slate-900 ">Certificates & Achievements</h2>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+    {{#each certificates}}
+    <div class=" p-2 rounded-lg border border-gray-300">
+      <h3 class="font-bold mb-1">{{title}}</h3>
+      <p class="text-slate-600 mb-1 text-sm">{{issuer}}</p>
+      {{#if year}}<p class="text-sm text-slate-600">{{year}}</p>{{/if}}
+    </div>
+    {{/each}}
+  </div>
+</section>
+{{/if}}
+
+
+      <div class="grid grid-cols-2 gap-4">
+      {{#if languages.length}}
+<section>
+  <div class="flex items-center gap-3 mb-3">
+    <i data-lucide="globe" class="w-4 h-4 text-slate-600"></i>
+    <h2 class=" font-bold text-slate-900 border-b-2 border-slate-900 ">Languages</h2>
+  </div>
+  <div class="flex flex-wrap gap-2">
+    {{#each languages}}
+    <span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm font-medium">
+      {{#if this.name}}
+        {{this.name}}{{#if this.level}} ({{this.level}}){{/if}}
+      {{else}}
+        {{this}}
+      {{/if}}
+    </span>
+    {{/each}}
+  </div>
+</section>
+{{/if}}
+
+
+      {{#if interests.length}}
+<section>
+  <div class="flex items-center gap-3 mb-3">
+    <i data-lucide="heart" class="w-4 h-4 text-slate-600"></i>
+    <h2 class=" font-bold text-slate-900 border-b-2 border-slate-900 ">Interests</h2>
+  </div>
+  <p class="text-gray-700 leading-tight text-sm">
+    {{join interests ", "}}
+  </p>
+</section>
+{{/if}}
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Resume</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f3f4f6;
+    }
+    @page {
+      size: A4;
+      margin: 1cm;
+    }
+  </style>
+</head>
+<body class="bg-white text-sm font-sans text-gray-800">
+  <div class="max-w-[794px] mx-auto">
+    
+    <!-- Header -->
+    <div class="text-center mb-6">
+      <h1 class="text-3xl font-bold text-gray-900">{{fullName}}</h1>
+      <p class="text-gray-600 mb-2">{{role}}</p>
+      <div class="flex flex-wrap justify-center gap-2 w-full text-gray-600 text-sm">
+        {{#if contact.email}}<span><i data-lucide="mail" class="inline w-4 h-4 mr-1"></i>{{contact.email}}</span>{{/if}}
+        {{#if contact.phone}}<span><i data-lucide="phone" class="inline w-4 h-4 mr-1"></i>{{contact.phone}}</span>{{/if}}
+        {{#if contact.linkedin}}<span><i data-lucide="linkedin" class="inline w-4 h-4 mr-1"></i>{{contact.linkedin}}</span>{{/if}}
+        {{#if contact.github}}<span><i data-lucide="github" class="inline w-4 h-4 mr-1"></i>{{contact.github}}</span>{{/if}}
+        {{#if contact.website}}<span><i data-lucide="globe" class="inline w-4 h-4 mr-1"></i>{{contact.website}}</span>{{/if}}
+        {{#if contact.location}}<span><i data-lucide="map-pin" class="inline w-4 h-4 mr-1"></i>{{contact.location}}</span>{{/if}}
+      </div>
+    </div>
+
+    <!-- Summary -->
+    {{#if summary}}
+    <div class="mb-4">
+      <h2 class="font-semibold text-gray-900 border-b border-gray-300 pb-1 mb-1">Professional Summary</h2>
+      <p>{{summary}}</p>
+    </div>
+    {{/if}}
+
+   {{#if skills.length}}
+  <div class="mb-4">
+    <h2 class="font-semibold text-gray-900 border-b border-gray-300 pb-1 mb-1">Skills</h2>
+    <div class="flex flex-wrap gap-2">
+      {{#each skills}}
+        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">{{this}}</span>
+      {{/each}}
+    </div>
+  </div>
+{{/if}}
+
+    <!-- Experience -->
+    {{#if experience.length}}
+    <div class="mb-4">
+      <h2 class="font-semibold text-gray-900 border-b border-gray-300 pb-1 mb-1">Work Experience</h2>
+      {{#each experience}}
+      <div class="mb-2 border-l-2 border-blue-300 pl-4">
+        <h3 class="font-semibold text-gray-900">{{role}}</h3>
+        <p class="text-blue-600 font-medium">{{company}}</p>
+        <p class="text-xs text-gray-600">{{formatDate startDate}} - {{formatDate endDate}}</p>
+        {{#if description}}<p class="text-sm">{{description}}</p>{{/if}}
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    <!-- Education -->
+    {{#if education.length}}
+    <div class="mb-4">
+      <h2 class="font-semibold text-gray-900 border-b border-gray-300 pb-1 mb-1">Education</h2>
+      {{#each education}}
+      <div class="flex justify-between mb-1">
+        <div>
+          <h3 class="font-semibold">{{degree}}</h3>
+          <p class="text-blue-600">{{institution}}</p>
+        </div>
+        <div class="text-right text-xs text-gray-600">
+          <p>{{startYear}} - {{endYear}}</p>
+          {{#if gpa}}<p>CGPA: {{gpa}}</p>{{/if}}
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    <!-- Projects -->
+    {{#if projects.length}}
+    <div class="mb-4">
+      <h2 class="font-semibold text-gray-900 border-b border-gray-300 pb-1 mb-1">Projects</h2>
+      {{#each projects}}
+      <div class="mb-2">
+        <h3 class="font-semibold">{{name}}</h3>
+        {{#if techStack}}<p class="text-sm">Tech Stack: <span class="text-blue-500">{{techStack}}</span></p>{{/if}}
+        {{#if description}}<p class="text-sm">{{description}}</p>{{/if}}
+        <div class="text-blue-600 text-sm">
+          {{#if liveDemo}}<a href="{{liveDemo}}" class="hover:underline mr-2">View</a>{{/if}}
+          {{#if github}}<a href="{{github}}" class="hover:underline">GitHub</a>{{/if}}
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    <!-- Certificates -->
+    {{#if certificates.length}}
+    <div class="mb-4">
+      <h2 class="font-semibold text-gray-900 border-b border-gray-300 pb-1 mb-1">Certificates</h2>
+      <div class="grid grid-cols-2 gap-3">
+        {{#each certificates}}
+        <div>
+          <h3 class="font-semibold">{{title}}</h3>
+          <p class="text-blue-600">{{issuer}}</p>
+          <p class="text-xs text-gray-600">{{year}}</p>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+
+   <!-- Languages -->
+{{#if languages.length}}
+<div class="mb-4">
+  <h2 class="font-semibold text-gray-900 border-b border-gray-300 pb-1 mb-1">Languages</h2>
+  <div class="flex flex-wrap gap-2">
+    {{#each languages}}
+    <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full">{{this}}</span>
+    {{/each}}
+  </div>
+</div>
+{{/if}}
+
+
+    <!-- Interests -->
+    {{#if interests.length}}
+    <div class="mb-2">
+      <h2 class="font-semibold text-gray-900 border-b border-gray-300 pb-1 mb-1">Interests</h2>
+      <p>{{#each interests}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</p>
+    </div>
+    {{/if}}
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

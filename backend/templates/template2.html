@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Resume</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { margin: 0; padding: 0; background: #f3f4f6; }
+    @page { size: A4; }
+    /* Fixing flex height to avoid overflow pages */
+    .container { height: 842px; max-height: 842px; }
+  </style>
+</head>
+<body class="font-sans text-gray-900">
+  <div class=" overflow-hidden flex flex-col md:flex-row lg:w-[594px] w-full">
+    
+    <!-- Sidebar -->
+    <aside class="md:w-1/3 bg-white pl-4 h-screen border-r space-y-6">
+      <div class="text-left">
+        <h1 class="text-3xl font-bold">{{fullName}}</h1>
+        <h2 class="text-xl ">{{role}}</h2>
+        {{#if contact.location}}<p class="text-sm text-gray-600">{{contact.location}}</p>{{/if}}
+      </div>
+
+      <div class="space-y-2 text-sm text-gray-800">
+        {{#if contact.email}}<p><i data-lucide="mail" class="inline w-4 h-4 mr-1"></i>{{contact.email}}</p>{{/if}}
+        {{#if contact.phone}}<p><i data-lucide="phone" class="inline w-4 h-4 mr-1"></i>{{contact.phone}}</p>{{/if}}
+        {{#if contact.website}}<p><i data-lucide="globe" class="inline w-4 h-4 mr-1"></i><a href="{{contact.website}}" target="_blank" class="text-blue-600 hover:underline">{{contact.website}}</a></p>{{/if}}
+        {{#if contact.linkedin}}<p><i data-lucide="linkedin" class="inline w-4 h-4 mr-1"></i><a href="{{contact.linkedin}}" target="_blank" class="text-blue-600 hover:underline">LinkedIn</a></p>{{/if}}
+        {{#if contact.github}}<p><i data-lucide="github" class="inline w-4 h-4 mr-1"></i><a href="{{contact.github}}" target="_blank" class="text-blue-600 hover:underline">GitHub</a></p>{{/if}}
+      </div>
+
+      {{#if skills.length}}
+      <div>
+        <h2 class="text-lg font-semibold border-b border-gray-100 mb-2">Skills</h2>
+        <ul class="list-disc pl-5 text-sm space-y-1">
+          {{#each skills}}<li>{{this}}</li>{{/each}}
+        </ul>
+      </div>
+      {{/if}}
+
+      {{#if languages.length}}
+  <div>
+    <h2 class="text-lg font-semibold border-b border-gray-100 mb-2">Languages</h2>
+    <ul class="list-disc pl-5 text-sm space-y-1">
+      {{#each languages}}
+        <li>{{this}}</li>
+      {{/each}}
+    </ul>
+  </div>
+{{/if}}
+
+      {{#if interests.length}}
+      <div>
+        <h2 class="text-lg font-semibold border-b border-gray-100 mb-2">Interests</h2>
+        <ul class="list-disc pl-5 text-sm space-y-1">
+          {{#each interests}}<li>{{this}}</li>{{/each}}
+        </ul>
+      </div>
+      {{/if}}
+    </aside>
+
+    <!-- Main Content -->
+    <main class="md:w-2/3 p-6 space-y-6 overflow-auto">
+      
+      {{#if summary}}
+      <section>
+        <h2 class="text-xl font-semibold border-b border-gray-300 pb-1 mb-2">Summary</h2>
+        <p class="text-sm text-gray-800 leading-relaxed">{{summary}}</p>
+      </section>
+      {{/if}}
+
+      {{#if experience.length}}
+      <section>
+        <h2 class="text-xl font-semibold border-b border-gray-300 pb-1 mb-2">Work Experience</h2>
+        <div class="space-y-4">
+          {{#each experience}}
+          <div>
+            <h3 class="font-semibold">{{role}}</h3>
+            <p class="text-blue-600 text-sm">{{company}}</p>
+            <p class="text-xs text-gray-500">{{formatDate startDate}} – {{formatDate endDate}}</p>
+            {{#if description}}<p class="text-sm mt-1">{{description}}</p>{{/if}}
+          </div>
+          {{/each}}
+        </div>
+      </section>
+      {{/if}}
+
+      {{#if education.length}}
+      <section>
+        <h2 class="text-xl font-semibold border-b border-gray-300 pb-1 mb-2">Education</h2>
+        <div class="space-y-3">
+          {{#each education}}
+          <div>
+            <h3 class="font-semibold">{{degree}}</h3>
+            <p class="text-blue-600 text-sm">{{institution}}</p>
+            <p class="text-xs text-gray-500">{{startYear}} – {{endYear}}{{#if gpa}} | GPA: {{gpa}}{{/if}}</p>
+          </div>
+          {{/each}}
+        </div>
+      </section>
+      {{/if}}
+
+      {{#if projects.length}}
+      <section>
+        <h2 class="text-xl font-semibold border-b border-gray-300 pb-1 mb-2">Projects</h2>
+        <div class="space-y-3">
+          {{#each projects}}
+          <div>
+            <h3 class="font-semibold">{{name}}</h3>
+            <p class="text-xs text-gray-600 mb-1">{{description}}</p>
+            {{#if techStack}}<p class="text-xs text-blue-500">{{techStack}}</p>{{/if}}
+            <div class="flex gap-4 text-sm mt-1">
+              {{#if liveDemo}}<a href="{{liveDemo}}" target="_blank" class="text-blue-600 hover:underline">Live</a>{{/if}}
+              {{#if github}}<a href="{{github}}" target="_blank" class="text-blue-600 hover:underline">GitHub</a>{{/if}}
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </section>
+      {{/if}}
+
+      {{#if certificates.length}}
+      <section>
+        <h2 class="text-xl font-semibold border-b border-gray-300 pb-1 mb-2">Certificates</h2>
+        <ul class="list-disc pl-5 text-sm space-y-2">
+          {{#each certificates}}
+          <li><strong>{{title}}</strong> – {{issuer}}{{#if year}} ({{year}}){{/if}}</li>
+          {{/each}}
+        </ul>
+      </section>
+      {{/if}}
+
+    </main>
+  </div>
+
+  <script>lucide.createIcons()</script>
+</body>
+</html>
