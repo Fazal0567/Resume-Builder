@@ -8,6 +8,7 @@ const userRouter = require('./routes/userRoutes')
 const resumeRouter = require('./routes/resumeRoutes')
 const app = express()
 const port = process.env.PORT || 3000
+const path = require('path');
 
 connectDB()
 
