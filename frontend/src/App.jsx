@@ -10,6 +10,7 @@ import { RouterProvider } from 'react-router'
 import { ResumeDialogProvider } from './contexts/ResumeDialogContext'
 import EditResume from './pages/EditResume'
 import NotFound from './pages/NotFound'
+import {UserProvider} from './contexts/UserContext'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -48,6 +49,7 @@ const App = () => {
 
   ])
   return (
+    <UserProvider>
     <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
       <ResumeDialogProvider>
       
@@ -56,6 +58,7 @@ const App = () => {
         <Toaster />
       </ResumeDialogProvider>
     </ThemeProvider>
+    </UserProvider>
   )
 }
 

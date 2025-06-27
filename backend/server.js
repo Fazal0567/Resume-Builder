@@ -13,7 +13,7 @@ connectDB()
 
 app.use(express.json())
 
-const allowedOrigins = (process.env.ORIGIN || 'http://localhost:3000')
+const allowedOrigins = (process.env.ORIGIN)
   .split(',')
   .map(origin => origin.trim());
 
