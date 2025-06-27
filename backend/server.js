@@ -13,7 +13,7 @@ connectDB()
 
 app.use(express.json())
 app.use(cors({
-  origin:"https://resumebuilder-yona.onrender.com"
+  origin:"https://resumebuilder-yona.onrender.com",
   credentials:true
 }))
 
