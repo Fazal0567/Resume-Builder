@@ -11,11 +11,12 @@ export const UserProvider = ({ children }) => {
     const fetchUser = async () => {
       try {
         const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user/profile`, {
+          method: 'GET',
           credentials: 'include',
-          // headers: {
-          //   'Content-Type': 'application/json',
-          //   // Add any required headers here
-          // }
+          headers: {
+            'Content-Type': 'application/json',
+            // Add any required headers here
+          }
         });
 
         if (!res.ok) {
