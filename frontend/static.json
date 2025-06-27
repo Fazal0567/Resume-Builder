@@ -1,0 +1,7 @@
+{
+  "routes": {
+    "/api/*": {
+      "origin": "https://resume-builder-jrhb.onrender.com"
+    }
+  }
+}
