@@ -13,9 +13,9 @@ connectDB()
 
 app.use(express.json())
 
-const allowedOrigins = (process.env.ORIGIN)
-  .split(',')
-  .map(origin => origin.trim());
+const allowedOrigins = process.env.ORIGIN
+  ? process.env.ORIGIN.split(',').map(origin => origin.trim())
+  : [];
 
 app.use(cors({
   origin: (origin, callback) => {
