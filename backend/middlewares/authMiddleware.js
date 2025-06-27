@@ -4,6 +4,11 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
 const isAuth = asyncHandler(async (req, res, next) => {
+    // ✅ Bypass preflight CORS check
+    if (req.method === "OPTIONS") {
+        return next();
+    }
+
     const token = req.cookies.token;
 
     if (!token) {
